@@ -24,10 +24,14 @@ struct NoteSwiftDataApp: App {
                 noteList
                 tagList
             }
+            #if os(macOS)
+            .frame(maxWidth: 800, alignment: .center)
+            #endif
             .modelContainer(for: [
                 Note.self,
                 Tag.self
             ])
+            
         }
     }
     
@@ -35,10 +39,14 @@ struct NoteSwiftDataApp: App {
         NavigationStack {
             NoteListView(allNotes: noteListQuery)
                 .searchable(text: $noteSearchText, prompt: "Search")
+                #if os(macOS)
+                .textCase(.none)
+                #else
                 .textInputAutocapitalization(.never)
+                #endif
                 .navigationTitle("Notes")
                 .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
+                    ToolbarItemGroup {
                         Menu {
                             Picker("Sort by", selection: $noteSortBy) {
                                 ForEach(NoteSortBy.allCases) {
@@ -48,9 +56,7 @@ struct NoteSwiftDataApp: App {
                         } label: {
                             Label(noteSortBy.text, systemImage: "line.horizontal.3.decrease.circle")
                         }
-                    }
-                    
-                    ToolbarItem(placement: .topBarTrailing) {
+                        
                         Menu {
                             Picker("Order by", selection: $noteOrderBy) {
                                 ForEach(OrderBy.allCases) {
@@ -61,7 +67,6 @@ struct NoteSwiftDataApp: App {
                             Label(noteOrderBy.text, systemImage: "arrow.up.arrow.down")
                         }
                     }
-
                 }
         }
         .tabItem { Label("Notes", systemImage: "note") }
@@ -84,10 +89,14 @@ struct NoteSwiftDataApp: App {
         NavigationStack {
             TagListView(allTags: tagListQuery)
                 .searchable(text: $tagSearchText, prompt: "Search")
+                #if os(macOS)
+                .textCase(.none)
+                #else
                 .textInputAutocapitalization(.never)
+                #endif
                 .navigationTitle("Tags")
                 .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
+                    ToolbarItemGroup {
                         Menu {
                             Picker("Order by", selection: $tagOrderBy) {
                                 ForEach(OrderBy.allCases) {

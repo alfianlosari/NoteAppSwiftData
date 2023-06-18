@@ -10,10 +10,10 @@ import SwiftData
 
 @Model
 class Tag {
-    @Attribute(.unique) var id: String?
-    var name: String
+    var id: String?
+    var name: String = ""
     
-    @Relationship var notes: [Note]
+    @Relationship var notes: [Note]?
     @Attribute(.transient) var isChecked = false
     
     init(id: String, name: String, notes: [Note]) {

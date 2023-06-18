@@ -10,11 +10,11 @@ import SwiftData
 
 @Model
 class Note {
-    @Attribute(.unique) var id: String?
-    var content: String
-    var createdAt: Date
+    var id: String?
+    var content: String = ""
+    var createdAt: Date = Date()
     
-    @Relationship(inverse: \Tag.notes) var tags: [Tag]
+    @Relationship(inverse: \Tag.notes) var tags: [Tag]?
     
     init(id: String, content: String, createdAt: Date, tags: [Tag]) {
         self.id = id

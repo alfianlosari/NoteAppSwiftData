@@ -59,8 +59,8 @@ struct NoteListView: View {
                     ForEach(allNotes) { note in
                         VStack(alignment: .leading) {
                             Text(note.content)
-                            if note.tags.count > 0 {
-                                Text("Tags:" + note.tags.map { $0.name }.joined(separator: ", "))
+                            if let tags = note.tags, tags.count > 0 {
+                                Text("Tags:" + tags.map { $0.name }.joined(separator: ", "))
                                     .font(.caption)
                             }
                             Text(note.createdAt, style: .time)
